@@ -1,7 +1,13 @@
 // --- Library ---
 const React = {
-  createElement: (...args) => {
-    console.log(args);
+  createElement: (tag, props, ...children) => {
+    const el = {
+      tag,
+      props,
+      children,
+    };
+    console.log(el);
+    return el;
   },
 };
 // --- Application ---
