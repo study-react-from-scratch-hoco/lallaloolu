@@ -5,10 +5,10 @@ const React = {
   },
 };
 // --- Application ---
-const App = (
-  <div darggable>
-    <h2>Hello React!</h2>
-    <p>I am a paragraph</p>
-    <input type="text" />
-  </div>
+const App = React.createElement(
+  "div",
+  { darggable: true },
+  React.createElement("h2", null, "Hello React!"),
+  React.createElement("p", null, "I am a paragraph"),
+  React.createElement("input", { type: "text" })
 );
