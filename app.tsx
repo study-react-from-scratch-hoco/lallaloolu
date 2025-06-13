@@ -1,5 +1,20 @@
 import React from "react";
 
+// ---- Library --- //
+const React = {
+  createElement: (tag, props, ...children) => {
+    if (typeof tag === "function") {
+      return tag(props, ...children);
+    }
+    const el = {
+      tag,
+      props,
+      children,
+    };
+    return el;
+  },
+};
+
 // --- Library ---
 const render = (el, container) => {
   let domEl;
@@ -28,15 +43,32 @@ const render = (el, container) => {
   container.appendChild(domEl);
 };
 
+// ---- Library --- //
+const useState = (initialState) => {
+  console.log("useState is initialized with value:", initialState);
+  let state = initialState;
+  const setState = (newState) => {
+    console.log("setState is called with newState value:", newState);
+    state = newState;
+  };
+  return [state, setState];
+};
+
+// --- Library ---
+
 // ---- Application --- //
 const App = () => {
-  const myName = "Arindam";
+  const [name, setName] = useState("Arindam");
   return (
     <div draggable>
-      <h2>Hello {myName}!</h2>
+      <h2>Hello {name}!</h2>
       <p>I am a pargraph</p>
-      <input type="text" />
+      <input
+        type="text"
+        value={name}
+        onchange={(e) => setName(e.target.value)}
+      />
     </div>
   );
 };
-render(<App />, document.getElementById("myapp"));
+// render(<App />, document.getElementById("myapp"));

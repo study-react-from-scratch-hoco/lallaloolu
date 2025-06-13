@@ -4,6 +4,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importDefault(require("react"));
+// ---- Library --- //
+const React = {
+    createElement: (tag, props, ...children) => {
+        if (typeof tag === "function") {
+            return tag(props, ...children);
+        }
+        const el = {
+            tag,
+            props,
+            children,
+        };
+        return el;
+    },
+};
 // --- Library ---
 const render = (el, container) => {
     let domEl;
@@ -31,15 +45,26 @@ const render = (el, container) => {
     // 4. 컨테이너에 DOM 노드를 추가합니다.
     container.appendChild(domEl);
 };
+// ---- Library --- //
+const useState = (initialState) => {
+    console.log("useState is initialized with value:", initialState);
+    let state = initialState;
+    const setState = (newState) => {
+        console.log("setState is called with newState value:", newState);
+        state = newState;
+    };
+    return [state, setState];
+};
+// --- Library ---
 // ---- Application --- //
 const App = () => {
-    const myName = "Arindam";
-    return (react_1.default.createElement("div", { draggable: true },
-        react_1.default.createElement("h2", null,
+    const [name, setName] = useState("Arindam");
+    return (React.createElement("div", { draggable: true },
+        React.createElement("h2", null,
             "Hello ",
-            myName,
+            name,
             "!"),
-        react_1.default.createElement("p", null, "I am a pargraph"),
-        react_1.default.createElement("input", { type: "text" })));
+        React.createElement("p", null, "I am a pargraph"),
+        React.createElement("input", { type: "text", value: name, onchange: (e) => setName(e.target.value) })));
 };
-render(react_1.default.createElement(App, null), document.getElementById("myapp"));
+// render(<App />, document.getElementById("myapp"));
