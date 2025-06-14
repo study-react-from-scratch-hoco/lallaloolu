@@ -52,10 +52,20 @@ const useState = (initialState) => {
     const setState = (newState) => {
         console.log("setState is called with newState value:", newState);
         state = newState;
+        // 상태가 변경되면 UI를 새롭게 렌더링합니다.
+        reRender();
     };
     return [state, setState];
 };
 // --- Library ---
+const reRender = () => {
+    console.log("reReander-ing :");
+    const rootNode = document.getElementById("myapp");
+    // 이미 렌더링된 내용을 재설정/정리
+    rootNode.innerHTML = "";
+    // 그런 다음 렌더링 Fresh
+    render(React.createElement(App, null), rootNode);
+};
 // ---- Application --- //
 const App = () => {
     const [name, setName] = useState("Arindam");
@@ -67,4 +77,4 @@ const App = () => {
         React.createElement("p", null, "I am a pargraph"),
         React.createElement("input", { type: "text", value: name, onchange: (e) => setName(e.target.value) })));
 };
-// render(<App />, document.getElementById("myapp"));
+render(React.createElement(App, null), document.getElementById("myapp"));

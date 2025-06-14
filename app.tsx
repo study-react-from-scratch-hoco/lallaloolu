@@ -50,11 +50,21 @@ const useState = (initialState) => {
   const setState = (newState) => {
     console.log("setState is called with newState value:", newState);
     state = newState;
+    // 상태가 변경되면 UI를 새롭게 렌더링합니다.
+    reRender();
   };
   return [state, setState];
 };
 
 // --- Library ---
+const reRender = () => {
+  console.log("reReander-ing :");
+  const rootNode = document.getElementById("myapp");
+  // 이미 렌더링된 내용을 재설정/정리
+  rootNode.innerHTML = "";
+  // 그런 다음 렌더링 Fresh
+  render(<App />, rootNode);
+};
 
 // ---- Application --- //
 const App = () => {
@@ -71,4 +81,4 @@ const App = () => {
     </div>
   );
 };
-// render(<App />, document.getElementById("myapp"));
+render(<App />, document.getElementById("myapp"));
